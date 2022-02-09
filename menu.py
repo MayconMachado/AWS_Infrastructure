@@ -1,5 +1,12 @@
 import time
-import pprint
+import describe
+import running
+import start
+import stop
+import reboot
+import createuser
+import list_user
+import delete_user
 
 option = 0
 while option != 3:
@@ -7,12 +14,17 @@ while option != 3:
         Welcome to EC2 service manager!
         Enter the number corresponding to the option
         
-        [ 1 ] Instances
-        [ 2 ] Users
+        [ 1 ] EC2 Instances
+        [ 2 ] IAM Users
         [ 3 ] Exit
+        
     ''')
-    option = int(input("What is your choice? "))
 
+    try:
+        option = int(input("What is your choice? "))
+    except ValueError:
+        print('''
+        Digite um número válido!!!''')
     if option == 1:
         while option != 6:
             print('''
@@ -24,51 +36,75 @@ while option != 3:
                 [ 4 ] Stop Instance
                 [ 5 ] Reboot Instance
                 [ 6 ] Return
+                [ 7 ] Exit
             ''')
-            option = int(input("What is your choice? "))
+            try:
+                option = int(input("What is your choice? "))
+            except ValueError:
+                print('''
+                Digite um número válido!!!''')
+
             if option == 1:
-                import describe
-                describe.response
+                describe.describe()
             elif option == 2:
-                import running
-                #result = running()
-                #print(result)
-                running.response
+                running.running()
             elif option == 3:
-                import start
-                start.response
+                start.start()
             elif option == 4:
-                import stop
-                #stop.response
+                stop.stop()
             elif option == 5:
-                import reboot
-                reboot.response
+                print('''
+                Digite um número válido!!!''')
+                reboot.reboot()
+            elif option == 6:
+                print("Back to menu")
+            elif option == 7:
+                print(''' Thanks for using 
+                ------- END -------
+                ''')
+                exit()
+
             else:
                 print("Error, select corresponding number")
             time.sleep(2)
 
     elif option == 2:
-        while option != 3:
+        while option != 4:
             print('''
-             Choose the desired action for EC2 Instances
+             Choose the desired action for IAM Users
                 
                 [ 1 ] List users 
                 [ 2 ] Create new user
                 [ 3 ] Delete user
+                [ 4 ] Return
+                [ 5 ] Exit
             ''')
-            option = int(input("What is your choice? "))
+            try:
+                option = int(input("What is your choice? "))
+            except ValueError:
+                pass
+
             if option == 1:
-                import list_user
-                list_user.response
+                list_user.list_user()
             elif option == 2:
-                import createuser
-                createuser.response
+                user = str(input("Write a name to Create: "))
+                createuser.create_user(user)
             elif option == 3:
-                import delete_user
-                delete_user.iam_delete_user('IAM_USER_NAME')
+                user = str(input("Write a name to delete: "))
+                delete_user.iam_delete_user(user)
+            elif option == 4:
+                print("Back to menu")
+            elif option == 5:
+                print(''' Thanks for using 
+                ------- END -------
+                ''')
+                exit()
             else:
                 print("Error, select corresponding number")
             time.sleep(2)
+
     else:
-        print("")
-print("FIM")
+        print(''' Thanks for using 
+        ------- END -------
+        ''')
+        exit()
