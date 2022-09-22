@@ -16,6 +16,3 @@ def describe():
             print("TYPE: " + printout['InstanceType'])
             print('CREATED: ' + str(printout['LaunchTime']))
             print("IP: " + printout['PrivateIpAddress'])
-
-
-
